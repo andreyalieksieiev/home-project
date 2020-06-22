@@ -18,7 +18,6 @@ export const MenuLink = styled.ul`
   top: 80px;
   right: 20px;
   a {
-    /* font-size: 16px; */
     font-weight: normal;
   }
   a:hover{

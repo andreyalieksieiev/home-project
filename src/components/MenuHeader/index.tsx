@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { Wrapper, WrapperMenu, MenuLink, Logout, Name, Li } from './styled';
 import { AppState } from '../../store/rootReducer';
 
-const Menu = () => {
+const Menu: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const { firstName, lastName } = useSelector((state: AppState) => state.user);
 

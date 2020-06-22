@@ -3,25 +3,28 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Input from '../UI/Input';
 import Button from '../UI/Button';
-import { Wrapper, Title, Flag, Name, Img } from './styled';
 import CountryActions from '../../store/country/actions';
+import { AppState } from '../../store/rootReducer';
+import { CountryProps, CountryPropsEvent } from '../../types';
 
-const Country = () => {
+import { Wrapper, Title, Flag, Name, Img } from './styled';
+
+const Country: React.FC = () => {
   const dispatch = useDispatch();
-  const { country, error, search } = useSelector((state) => state.country);
-  const [filterCountry, setFilterCountry] = useState('')
+  const { country, error, search } = useSelector((state: AppState) => state.country);
+  const [filterCountry, setFilterCountry] = useState<CountryProps[]>([])
 
   useEffect(() => {
     dispatch(CountryActions.getCountry())
   }, [dispatch])
 
   const getCountry = () => {
-    setFilterCountry(country.filter(count => {
+    setFilterCountry(country.filter((count: { name: string; }) => {
       return count.name.toLowerCase().includes(search.toLowerCase());
     }));
   };
 
-  const handleChangeInput = (event) => {
+  const handleChangeInput = (event: CountryPropsEvent ) => {
     const { name, value } = event.target;
     dispatch(CountryActions.changeInput({name, value }))
   };

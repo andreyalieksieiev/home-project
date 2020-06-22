@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 import Menu from '../MenuHeader';
+
 import { Wrapper } from './styled';
 
 const Header: React.FC = () => {

@@ -3,13 +3,16 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import Input from '../UI/Input';
 import DelayCountryActions from '../../store/delayCountry/actions';
+import { AppState } from '../../store/rootReducer';
+import { DelayCountryProps, DelayCountryPropsEvent }  from '../../types';
+
 import { Wrapper, Title, Flag, Name, Img } from './styled';
 
-const DelayCountry = () => {
+const DelayCountry: React.FC = () => {
   const [timer, setTimer] = useState(false)
 
   const dispatch = useDispatch();
-  const { search, country, error } = useSelector((state) => state.delayCountry);
+  const { search, country, error } = useSelector((state: AppState) => state.delayCountry);
  
   useEffect(() => {
     if (search !== '' && timer) {
@@ -18,7 +21,7 @@ const DelayCountry = () => {
     }
   }, [dispatch, search, timer]);
   
-  const handleChangeInput = (event) => {
+  const handleChangeInput = (event: DelayCountryPropsEvent) => {
     const { name, value } = event.target;
     dispatch(DelayCountryActions.changeInput({name, value }))
     setTimeout(() => setTimer(true),2000)
@@ -34,7 +37,7 @@ const DelayCountry = () => {
         value={search}
         onChange={e => handleChangeInput(e)}
       />
-      {country && country.map(el => {
+      {country && country.map((el: DelayCountryProps) => {
         return(
           <Flag key={el.id}>
             <Name>{el.name}</Name>

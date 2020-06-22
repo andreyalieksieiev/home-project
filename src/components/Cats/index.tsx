@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useSelector,useDispatch } from 'react-redux';
 
 import Spinner from '../UI/Spinner';
-import { Span, Name, Spin } from './styled';
 import CatsActions from '../../store/cats/actions';
+import { AppState } from '../../store/rootReducer';
+import { CatsProps } from '../../types';
 
-const Cats = () => {
+import { Span, Name, Spin } from './styled';
+
+const Cats: React.FC = () => {
   const dispatch = useDispatch();
-  const { allCats, pageSize, totalCount, isLoading } = useSelector((state) => state.cats);
+  const { allCats, pageSize, totalCount, isLoading } = useSelector((state: AppState) => state.cats);
   const [currentPage, setCurrentPage] = useState(1);
 
     let page = [];
@@ -25,7 +28,7 @@ const Cats = () => {
       dispatch(CatsActions.currentPage({ pageSize, currentPage }))
     }, [dispatch, pageSize, currentPage])
  
-  const catsName = allCats && allCats.map(el => {
+  const catsName = allCats && allCats.map((el: CatsProps) => {
       return <Name key={el.id}>{el.name}</Name>
     });
 
@@ -41,7 +44,7 @@ const Cats = () => {
     <>
       {catsName}
       {page.map(p => {
-        return  <Span primary={currentPage === p} onClick={() => setCurrentPage(p)} key={p.id}>{p}</Span>
+        return  <Span primary={currentPage === p} onClick={() => setCurrentPage(p)}>{p}</Span>
         })}
     </>
   )

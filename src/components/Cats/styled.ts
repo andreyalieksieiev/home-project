@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-export const Span = styled.span`
+type CatsProps = {
+  primary: any
+}
+
+export const Span = styled.span<CatsProps>`
   cursor: pointer;
   margin: 20px;
   font-size: 20px;

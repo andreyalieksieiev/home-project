@@ -23,7 +23,7 @@ const Card = () => {
     <Wrapper>
       <Name>{name}</Name>
       <Age>{`age: ${age}`}</Age>
-      <EyeColor>{`eye_color: ${eye_color}`}</EyeColor>
+      <EyeColor>{`eye color: ${eye_color}`}</EyeColor>
       <Gender>{`gender: ${gender}`}</Gender>
       <Id>{`id: ${id}`}</Id>
       <Link to="/users">

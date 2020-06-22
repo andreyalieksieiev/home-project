@@ -1,29 +1,33 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { Wrapper, Title, Success, Error } from './styled';
 import Input from '../UI/Input';
 import Button from '../UI/Button';
 
 import UserActions from '../../store/user/actions';
+import { AppState } from '../../store/rootReducer';
+import { ProfileEvent } from '../../types';
 
-const Profile = ({ history }) => {
+const Profile: React.FC = () => {
   const dispatch = useDispatch();
-  const { error, success, newFirstName, newLastName } = useSelector((state) => state.user);
+  const history = useHistory()
 
-const handlerSubmitProfile = useCallback(({ firstName: newFirstName, lastName: newLastName}) => {
-  dispatch(UserActions.upDateProfile({ firstName: newFirstName, lastName: newLastName}))
-}, [dispatch]);
+  const { error, success, newFirstName, newLastName } = useSelector((state: AppState) => state.user);
 
-if(success !== ''){
-  setTimeout(() => {
-    window.location.reload()
-    history.push('/')
-  }, 1000)
-};
+  const handlerSubmitProfile = useCallback(({ firstName: newFirstName, lastName: newLastName}) => {
+    dispatch(UserActions.upDateProfile({ firstName: newFirstName, lastName: newLastName}))
+  }, [dispatch]);
 
-  const handleChangeInput = (event) => {
+  if(success !== ''){
+    setTimeout(() => {
+      window.location.reload()
+      history.push('/')
+    }, 1000)
+  };
+
+  const handleChangeInput = (event: ProfileEvent) => {
     const { name, value } = event.target;
     dispatch(UserActions.changeInput({name, value }))
   };
@@ -36,7 +40,6 @@ if(success !== ''){
       <Title>Profile</Title>
       <Input 
         name="newFirstName"
-        // name="firstName"
         type="text" 
         value={newFirstName} 
         // value={firstName} 
@@ -45,7 +48,6 @@ if(success !== ''){
         />
       <Input 
         name="newLastName"
-        // name="lastName"
         type="text" 
         // value={lastName} 
         value={newLastName} 
@@ -58,4 +60,5 @@ if(success !== ''){
   );
 };
 
-export default withRouter(Profile);
+export default Profile;
+// export default withRouter(Profile);
